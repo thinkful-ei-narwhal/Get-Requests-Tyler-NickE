@@ -1,5 +1,5 @@
-function getDogImage() {
-  fetch('https://dog.ceo/api/breeds/image/random')
+function getDogImage(numOfDogs) {
+  fetch(`https://dog.ceo/api/breeds/image/random/${numOfDogs}`)
     .then(response => response.json())
     .then(responseJson =>
       displayResults(responseJson))
@@ -19,7 +19,9 @@ function displayResults(responseJson) {
 function watchForm() {
   $('form').submit(event => {
     event.preventDefault();
-    getDogImage();
+    const numOfDogs = $(event.currentTarget).find('.user-number').val();
+    console.log(`TESTING ${numOfDogs}`);
+    getDogImage(numOfDogs);
   });
 }
 
