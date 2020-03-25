@@ -1,9 +1,9 @@
-function getDogImage(numOfDogs) {
-  fetch(`https://dog.ceo/api/breeds/image/random/${numOfDogs}`)
+function getDogImage(numOfDogs, breedString) {
+  fetch(`https://dog.ceo/api/breed/${breedString}/images/random/${numOfDogs}`)
     .then(response => response.json())
     .then(responseJson =>
       displayResults(responseJson))
-    .catch(error => alert('Something went wrong. Try again later.'));
+    .catch(error => alert('Something went wrong. 404.'));
 }
 
 function displayResults(responseJson) {
@@ -13,8 +13,9 @@ function displayResults(responseJson) {
     tempArr.push(`<img src="${event}" class="results-img">`);
   });
   const joinArr = tempArr.join('');
-  //replace the existing image with the new one
-  $('.results-img').replaceWith(joinArr);
+
+  $('.results').html(`<h2>Look at this dog(s)!</h2>
+  ${joinArr}`);
 
   //display the results section
   $('.results').removeClass('hidden');
@@ -24,8 +25,8 @@ function watchForm() {
   $('form').submit(event => {
     event.preventDefault();
     const numOfDogs = $(event.currentTarget).find('.user-number').val();
-    console.log(`TESTING ${numOfDogs}`);
-    getDogImage(numOfDogs);
+    const breedString = $(event.currentTarget).find('.dog-breed').val();
+    getDogImage(numOfDogs, breedString);
   });
 }
 
