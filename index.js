@@ -8,10 +8,14 @@ function getDogImage(numOfDogs) {
 
 function displayResults(responseJson) {
   console.log(responseJson);
+  const tempArr = [];
+  responseJson.message.forEach(event => {
+    tempArr.push(`<img src="${event}" class="results-img">`);
+  });
+  const joinArr = tempArr.join('');
   //replace the existing image with the new one
-  $('.results-img').replaceWith(
-    `<img src="${responseJson.message}" class="results-img">`
-  );
+  $('.results-img').replaceWith(joinArr);
+
   //display the results section
   $('.results').removeClass('hidden');
 }
